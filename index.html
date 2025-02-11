@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валентинка 💖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            color: #d1007a;
+            font-size: 28px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gif-container {
+            margin-bottom: -10px;
+            position: relative;
+            z-index: 2;
+        }
+        .gif {
+            width: 200px;
+            height: 200px;
+        }
+
+        .buttons {
+            position: relative;
+            margin-top: 20px;
+            width: 100%;
+            height: 200px;
+            z-index: 2;
+        }
+
+        .btn {
+            font-size: 18px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .yes {
+            background-color: green;
+            color: white;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .no {
+            background-color: red;
+            color: white;
+        }
+
+        /* Анимация сердечек */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: float 5s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Гифка с мишкой -->
+    <div class="gif-container">
+        <img src="images/jump-bear.gif" alt="Love Bear" class="gif">
+    </div>
+
+    <h1>Будешь моей валентинкой? 💖</h1>
+
+    <div class="buttons">
+        <button class="btn yes" id="yesBtn" style="left: 45%; top: 50%;">Да, буду! 😊</button>
+        <button class="btn no" id="noBtn" style="left: 30%; top: 50%;">Нет 💔️🖕🏻</button>
+    </div>
+
+    <script>
+        let yesBtn = document.getElementById("yesBtn");
+        let noBtn = document.getElementById("noBtn");
+        let size = 18;
+        let noClickCount = 0;
+
+        // Список фраз для кнопки "Нет"
+        let noTexts = [
+            "Точно нет? 🤔",
+            "А может подумаешь? 🥺",
+            "Ну пожалуйста 😢",
+            "Я буду в тильте 💔",
+            "Завязывай давай 😤",
+            "Бро ВТФ 😭",
+            "Ну почему? 😩",
+            "Ну ладно... 😔",
+            "💔💔💔"
+        ];
+        let noIndex = 0;
+
+        noBtn.addEventListener("click", function () {
+            noClickCount++;
+            size += 10;
+            yesBtn.style.fontSize = size + "px";
+            yesBtn.style.padding = (size / 3) + "px " + (size / 2) + "px";
+
+            // Меняем текст кнопки "Нет"
+            if (noIndex < noTexts.length - 1) {
+                noIndex++;
+                noBtn.innerText = noTexts[noIndex];
+            } else {
+                noBtn.innerText = "НЕТ 💔💔💔";
+            }
+        });
+
+        yesBtn.addEventListener("click", function () {
+            showFinalMessage();
+        });
+
+        function showFinalMessage() {
+            document.body.innerHTML = `
+                <table>
+                <tr>
+                    <td><img src="images/bears-hug.gif" alt="Happy Love Gif" class="gif"></td>
+                    <td><img src="images/bears-kiss.gif" alt="Happy Love Gif" class="gif"></td>
+                </tr>
+                </table>
+
+                <h1>💖 ЕЕЕЕЕ! Рахмет жаным 💖</h1>
+                <h1>Плюс вайбик, ваще с кайфом! 🥰</h1>
+                <img src="images/kiss.gif" alt="Happy Love Gif" width="250" height="200">
+            `;
+        }
+
+        // Генерация анимированных сердечек
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            heart.style.fontSize = Math.random() * 10 + 15 + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+
+</body>
+</html>
